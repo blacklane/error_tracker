@@ -4,7 +4,7 @@ Most error trackers (Airbrake, Raygun) offer both an error catcher at *middlewar
 *a manual triggering* way. **ErrorTracker** solves the problem of **abstracting** all your error tracking
 services, while still being **able to trigger manual calls** with proper session & controller information.
 
-**ErrorTracker** currently works with Rails (session data is stored via a Railtie).
+**ErrorTracker** currently works with Rails (session & controller data is stored via a Railtie).
 
 ### Installation
 
@@ -29,7 +29,6 @@ These code should go into a Rails initializer - e.g. ``config/initializers/error
 # config/initializers/error_tracker.rb
 
 # Configure your error tracking services or whatever
-
 Raygun.setup do |config|
   # configure Raygun
 end
@@ -39,7 +38,6 @@ Airbrake.configure do |config|
 end
 
 # Register various calls
-
 ErrorTracker.register do |exception, custom, request|
   Raygun.track_exception(exception, request)
 end
@@ -53,7 +51,7 @@ ErrorTracker.register do |exception, custom, request|
 end
 ```
 
-2. Another way is by extending ``ErrorTracker::Adapter`` and implemeting the ``self.perform`` method:
+2. Another way is by extending ``ErrorTracker::Adapter`` and implementing the ``self.perform`` method:
 
 ```ruby
 # config/initializers/error_tracker.rb
@@ -73,13 +71,12 @@ ErrorTracker.register("MyAdapter")
 
 #### Manual triggering
 
-Manual triggering can be performed anywhere in your code by calling:
+Manual triggering can be performed anywhere in your code by calling ``ErrorTracker.track``. The method takes
+two arguments: the *exception* object, and an optional hash, containing *custom* information:
 
 ```ruby
-exception = StandardError.new("that went pretty bad")
-custom = { username: "John", age: 25 }
-
-ErrorTracker.track(exception, custom)
+ErrorTracker.track(StandardError.new("that went pretty bad"), { username: "John", age: 25 })
 ```
 
-This will propagate the error through all the registered blocks & adapters.
+This call will propagate the error through all the registered blocks & adapters. The ``request`` information is
+added automatically to your registered methods.
