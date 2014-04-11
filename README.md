@@ -75,8 +75,9 @@ Manual triggering can be performed anywhere in your code by calling ``ErrorTrack
 two arguments: the *exception* object, and an optional hash, containing *custom* information:
 
 ```ruby
-ErrorTracker.track(StandardError.new("that went pretty bad"), { username: "John", age: 25 })
+ErrorTracker.track(StandardError.new("that went pretty bad"), { name: "John" })
 ```
 
-This call will propagate the error through all the registered blocks & adapters. The ``request`` information is
-added automatically to your registered methods.
+This call will propagate the error through all the registered blocks & adapters. 
+
+The ``request`` information (a Rack environment-like hash) is added automatically to your registered methods.
