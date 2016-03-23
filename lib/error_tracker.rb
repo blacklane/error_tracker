@@ -20,7 +20,7 @@ module ErrorTracker
   # Tracks an exception over all registered adapters.
   # ErrorTracker deals with appending request information, so you won't need to
   # include it in the custom parameter.
-  # 
+  #
   # @param [Exception] exception
   # @param optional [Hash] custom additional paramters to track
   # @return [Array] an Array containing responses from all your adapters

@@ -3,7 +3,7 @@
 class ErrorTracker::Adapter
 
   # Tracks an exception.
-  # 
+  #
   # @param [Exception] exception
   # @param optional [Hash] custom
   # @param optional [Hash] request a Rack environment compatible hash (usually request.env)

@@ -17,8 +17,8 @@ end
 
 class ErrorTracker::Railtie < Rails::Railtie
 
-  # Hooks up into the ActionController loading process. Injects a before_filter 
-  # that stores environment information inside ErrorTracker::Context.env for the 
+  # Hooks up into the ActionController loading process. Injects a before_filter
+  # that stores environment information inside ErrorTracker::Context.env for the
   # duration of the request.
   initializer "error_tracker.setup_action_controller" do |app|
     ActiveSupport.on_load :action_controller do
