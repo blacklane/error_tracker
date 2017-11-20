@@ -53,7 +53,7 @@ describe ErrorTracker do
 
     it "silently ignores the call if the class is being added twice" do
       ErrorTracker.register(DummyTracker)
-      expect(ErrorTracker.register(DummyTracker)).to be_false
+      expect(ErrorTracker.register(DummyTracker)).to be_falsey
       expect(ErrorTracker::Notifier.instance.registered_classes).to eq([DummyTracker])
     end
   end
