@@ -5,7 +5,7 @@ module ErrorTracker::Init
 
   def setup_action_controller(base)
     base.class_eval do
-      before_filter do |controller|
+      before_action do |controller|
         ErrorTracker::Context.clear!
         if controller.respond_to?(:request) && controller.request.respond_to?(:env)
           ErrorTracker::Context.env = controller.request.env
